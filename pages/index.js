@@ -34,6 +34,13 @@ export default function Home() {
     }
   }, [responses]);
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   return (
     <div className="container">
       <div className="header">
@@ -50,6 +57,7 @@ export default function Home() {
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Talk to AI Counselor Beta"
           className="message-input"
         />
