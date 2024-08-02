@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY() });
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -27,7 +27,26 @@ export default async function handler(req, res) {
       model: 'llama-3.1-70b-versatile',
     });
 
-    res.status(200).json({ response: chatCompletion.choices[0]?.message?.content || "" });
+    const rawResponse = chatCompletion.choices[0]?.message?.content || "";
+
+    // Function to format response
+    const formatResponse = (text) => {
+      // Bold text
+      let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+      // Bullet points
+      formatted = formatted.replace(/\n\* (.*?)(?=\n|$)/g, '<li>$1</li>');
+      formatted = formatted.replace(/<li>(.*?)<\/li>/g, '<ul>$&</ul>');
+
+      // Convert new lines to paragraph
+      formatted = formatted.replace(/\n/g, '<br>');
+
+      return formatted;
+    };
+
+    const formattedResponse = formatResponse(rawResponse);
+
+    res.status(200).json({ response: formattedResponse });
   } catch (error) {
     res.status(500).json({ error: 'Error fetching chat completion' });
   }
