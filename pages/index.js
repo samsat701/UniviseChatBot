@@ -1,5 +1,6 @@
 // pages/index.js
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [message, setMessage] = useState('');
@@ -55,6 +56,15 @@ export default function Home() {
         />
         <button type="submit" className="send-button">Send</button>
       </form>
+      <div className="footer">
+        <Link href="https://univiseuiuc.web.illinois.edu" passHref>
+          <img src="/assets/home.png" alt="Home" className="home" />
+        </Link>
+        <Link href="https://www.linkedin.com/company/univise-ai" passHref>
+          <img src="/assets/linkedin.png" alt="LinkedIn" className="icon" />
+        </Link>
+        <img src="/assets/loading-arrow.png" alt="Reset" className="icon" onClick={() => window.location.reload()} />
+      </div>
       <style jsx global>{`
         body, html, #__next {
           margin: 0;
@@ -82,7 +92,7 @@ export default function Home() {
 
         .header h1 {
           margin: 0;
-          font-size: 5em;  /* Adjust this line to make the text larger */
+          font-size: 4em;  /* Adjust this line to make the text larger */
         }
 
         .header .dot {
@@ -155,6 +165,30 @@ export default function Home() {
           background-color: #007bff;
           color: #fff;
         }
+
+        .footer {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          position: absolute;
+          bottom: 20px;
+          left: 20px;
+        }
+
+        .icon {
+          width: 40px;
+          height: 40px;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+
+        .home {
+          width: 42px;
+          height: 42px;
+          margin-right: 8px;
+          cursor: pointer;
+        }
+
       `}</style>
     </div>
   );
