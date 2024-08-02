@@ -24,7 +24,7 @@ export default async function handler(req, res) {
           content: message,
         },
       ],
-      model: 'llama3-8b-8192',
+      model: 'llama-3.1-70b-versatile',
     });
 
     res.status(200).json({ response: chatCompletion.choices[0]?.message?.content || "" });
