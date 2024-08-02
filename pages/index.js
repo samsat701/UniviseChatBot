@@ -1,4 +1,3 @@
-// pages/index.js
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
@@ -92,7 +91,7 @@ export default function Home() {
 
         .header h1 {
           margin: 0;
-          font-size: 4em;  /* Adjust this line to make the text larger */
+          font-size: 5em;  /* Adjust this line to make the text larger */
         }
 
         .header .dot {
@@ -189,6 +188,41 @@ export default function Home() {
           cursor: pointer;
         }
 
+        @media (max-width: 600px) {
+          .header h1 {
+            font-size: 2em;
+          }
+
+          .chat-form {
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+            padding: 10px;
+          }
+
+          .message-input {
+            height: 40px;
+            margin-bottom: 10px;
+          }
+
+          .send-button {
+            width: 100%;
+            padding: 10px;
+          }
+
+          .footer {
+            flex-direction: column;
+            position: static;
+            margin-top: 20px;
+          }
+
+          .icon, .home {
+            width: 30px;
+            height: 30px;
+            margin-right: 0;
+            margin-bottom: 10px;
+          }
+        }
       `}</style>
     </div>
   );
