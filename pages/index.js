@@ -58,7 +58,7 @@ export default function Home() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Talk to AI Counselor Beta"
+          placeholder="Talk to UniviseAI..."
           className="message-input"
         />
         <button type="submit" className="send-button">Send</button>
