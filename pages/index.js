@@ -1,9 +1,10 @@
 // pages/index.js
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Home() {
   const [message, setMessage] = useState('');
   const [responses, setResponses] = useState([]);
+  const chatContainerRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,12 +28,18 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [responses]);
+
   return (
     <div className="container">
       <div className="header">
         <h1>Univise<span className="dot">.</span></h1>
       </div>
-      <div className="chat-container">
+      <div className="chat-container" ref={chatContainerRef}>
         {responses.map((response, index) => (
           <div key={index} className={`message ${response.role}`}>
             <p>{response.content}</p>
@@ -53,6 +60,7 @@ export default function Home() {
           margin: 0;
           padding: 0;
           height: 100%;
+          overflow: hidden; /* Prevent scrolling on the base site */
           background-color: #000;
           color: #fff;
           font-family: Arial, sans-serif;
@@ -62,9 +70,9 @@ export default function Home() {
         .container {
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
           height: 100vh;
           padding: 20px;
+          overflow: hidden; /* Prevent scrolling on the main container */
         }
 
         .header {
@@ -74,7 +82,7 @@ export default function Home() {
 
         .header h1 {
           margin: 0;
-          font-size: 3em;
+          font-size: 5em;  /* Adjust this line to make the text larger */
         }
 
         .header .dot {
@@ -86,6 +94,9 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           overflow-y: auto;
+          padding: 10px;
+          background-color: #111;
+          border-radius: 10px;
           margin-bottom: 20px;
         }
 
@@ -114,6 +125,9 @@ export default function Home() {
           padding: 10px;
           background-color: #333;
           border-radius: 25px;
+          width: calc(100% - 40px); /* Ensure it fits within the container */
+          max-width: 600px; /* Set a max width */
+          margin: 0 auto 20px auto; /* Center the chat bar */
         }
 
         .message-input {
